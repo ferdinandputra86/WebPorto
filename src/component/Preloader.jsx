@@ -55,10 +55,7 @@ function preloadImage(src) {
 // Preload font
 function preloadFont() {
   return new Promise((resolve) => {
-    const font = new FontFace(
-      "Pixelate",
-      "url(/assets/fonts/Minecraft.ttf)"
-    );
+    const font = new FontFace("Pixelate", "url(/assets/fonts/Minecraft.ttf)");
     font
       .load()
       .then(() => {
@@ -122,7 +119,7 @@ const Preloader = ({ onComplete }) => {
       preloadImage(src).then((result) => {
         updateProgress();
         return result;
-      })
+      }),
     );
 
     await Promise.all(promises);
@@ -258,9 +255,7 @@ const Preloader = ({ onComplete }) => {
                     stiffness: 200,
                   }}
                 >
-                  <span className="preloader-enter-text">
-                    ▶ START
-                  </span>
+                  <span className="preloader-enter-text">▶ START</span>
                   <span className="preloader-enter-hint">
                     [ PRESS TO ENTER ]
                   </span>
