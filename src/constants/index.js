@@ -12,7 +12,7 @@ export const myProjects = [
     ],
     href: "https://solacestudio.id/", // Silakan sesuaikan link ini
     logo: "",
-    image: "/assets/projects/solace.png", // Silakan sesuaikan path gambar ini
+    image: "/assets/projects/solace.jpg", // Silakan sesuaikan path gambar ini
     tags: [
       { id: 1, name: "Express", path: "/assets/logos/javascript.svg" },
       { id: 2, name: "MySQL", path: "/assets/logos/mysql.svg" },
@@ -33,7 +33,7 @@ export const myProjects = [
     ],
     href: "https://github.com/ferdinandputra86/Restful-API-js",
     logo: "",
-    image: "/assets/projects/node.png",
+    image: "/assets/projects/node.jpg",
     tags: [
       { id: 1, name: "Node.js", path: "/assets/logos/node.svg" },
       { id: 2, name: "Express", path: "/assets/logos/javascript.svg" },
@@ -54,7 +54,7 @@ export const myProjects = [
     ],
     href: "https://github.com/ferdinandputra86/Laravel-auth",
     logo: "",
-    image: "/assets/projects/laravel.png",
+    image: "/assets/projects/laravel.jpg",
     tags: [
       { id: 1, name: "Laravel", path: "/assets/logos/laravel.svg" },
       { id: 2, name: "PHP", path: "/assets/logos/php.svg" },
@@ -76,7 +76,7 @@ export const myProjects = [
     ],
     href: "https://github.com/ferdinandputra86/pasar.in",
     logo: "",
-    image: "/assets/projects/pasar.in.png",
+    image: "/assets/projects/pasar.in.jpg",
     tags: [
       { id: 1, name: "Marketplace", path: "/assets/logos/marketplace.svg" },
       { id: 2, name: "PHP", path: "/assets/logos/php.svg" },
@@ -96,7 +96,7 @@ export const myProjects = [
     ],
     href: "https://github.com/C241-PS090/Mobile-Development",
     logo: "",
-    image: "/assets/projects/diabetesense.png",
+    image: "/assets/projects/diabetesense.jpg",
     tags: [
       { id: 1, name: "Android", path: "/assets/logos/androi.svg" },
       { id: 2, name: "ML", path: "/assets/logos/ml.svg" },
@@ -116,7 +116,7 @@ export const myProjects = [
     ],
     href: "https://github.com/ferdinandputra86/rythm",
     logo: "",
-    image: "/assets/projects/rythm.png",
+    image: "/assets/projects/rythm.jpg",
     tags: [
       { id: 1, name: "Flutter", path: "/assets/logos/flutter.svg" },
       { id: 2, name: "Firebase", path: "/assets/logos/firebase.svg" },
@@ -135,7 +135,7 @@ export const myProjects = [
     ],
     href: "https://github.com/ferdinandputra86/Emotion-Detection-NB-SVM",
     logo: "",
-    image: "/assets/projects/emotionclass.png",
+    image: "/assets/projects/emotionclass.jpg",
     tags: [
       { id: 1, name: "Python", path: "/assets/logos/python.svg" },
       { id: 2, name: "ML", path: "/assets/logos/ml.svg" },
@@ -154,7 +154,7 @@ export const myProjects = [
     ],
     href: "https://github.com/ferdinandputra86/Heartlog",
     logo: "",
-    image: "/assets/projects/heartlog.png",
+    image: "/assets/projects/heartlog.jpg",
     tags: [
       { id: 1, name: "Flutter", path: "/assets/logos/flutter.svg" },
       { id: 2, name: "OOP", path: "/assets/logos/oop.svg" },

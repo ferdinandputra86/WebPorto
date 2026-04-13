@@ -12,14 +12,14 @@ const CRITICAL_ASSETS = [
 
 // Secondary assets - loaded in background but tracked for progress
 const SECONDARY_ASSETS = [
-  "/assets/projects/solace.png",
-  "/assets/projects/node.png",
-  "/assets/projects/laravel.png",
-  "/assets/projects/pasar.in.png",
-  "/assets/projects/diabetesense.png",
-  "/assets/projects/emotionclass.png",
-  "/assets/projects/heartlog.png",
-  "/assets/projects/rythm.png",
+  "/assets/projects/solace.jpg",
+  "/assets/projects/node.jpg",
+  "/assets/projects/laravel.jpg",
+  "/assets/projects/pasar.in.jpg",
+  "/assets/projects/diabetesense.jpg",
+  "/assets/projects/emotionclass.jpg",
+  "/assets/projects/heartlog.jpg",
+  "/assets/projects/rythm.jpg",
   "/assets/socials/instagram.svg",
   "/assets/socials/linkedIn.svg",
   "/assets/arrow-right.svg",

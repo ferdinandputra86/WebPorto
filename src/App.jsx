@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Analytics } from "@vercel/analytics/react";
 import Navbar from "./section/Navbar";
 import Hero from "./section/Hero";
 import About from "./section/About";
@@ -12,6 +13,7 @@ const App = () => {
 
   return (
     <>
+      <Analytics />
       {!isLoaded && <Preloader onComplete={() => setIsLoaded(true)} />}
       <div
         className="container mx-auto max-w-7xl"
