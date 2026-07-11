@@ -31,21 +31,29 @@ export const Timeline = ({ data }) => {
             key={index}
             className="flex justify-start pt-10 md:pt-40 md:gap-10"
           >
-            <div className="sticky z-40 flex flex-col items-center self-start w-10 md:w-auto max-w-xs md:flex-row top-40 lg:max-w-sm">
+            {/* Desktop only: sticky column */}
+            <div className="sticky z-40 hidden md:flex flex-col items-center self-start md:flex-row top-40">
               <div className="absolute flex items-center justify-center w-10 h-10 rounded-full -left-[15px] bg-midnight">
                 <div className="w-4 h-4 p-2 border rounded-full bg-neutral-800 border-neutral-700" />
               </div>
-              <div className="flex-col hidden gap-2 text-xl font-bold md:flex md:pl-20 md:text-4xl text-neutral-300">
+              <div className="flex-col gap-2 text-xl font-bold md:flex md:pl-20 md:text-4xl text-neutral-300">
                 <h3>{item.date}</h3>
                 <h3 className="text-3xl text-neutral-400">{item.title}</h3>
                 <h3 className="text-3xl text-neutral-500">{item.job}</h3>
               </div>
             </div>
 
-            <div className="relative flex-1 pl-14 pr-4 md:pl-4">
-              <div className="block mb-4 text-2xl font-bold text-left text-neutral-300 md:hidden ">
-                <h3>{item.date}</h3>
-                <h3>{item.job}</h3>
+            {/* Content (mobile & desktop) */}
+            <div className="relative w-full md:pl-4">
+              {/* Mobile only: dot + header */}
+              <div className="relative mb-4 md:hidden">
+                <div className="absolute left-0 top-1 flex items-center justify-center w-4 h-4">
+                  <div className="w-3 h-3 rounded-full bg-neutral-800 border border-neutral-700" />
+                </div>
+                <div className="pl-8">
+                  <h3 className="text-xl font-bold text-neutral-300">{item.date}</h3>
+                  <h3 className="text-lg text-neutral-400">{item.job}</h3>
+                </div>
               </div>
               {item.contents.map((content, index) => (
                 <p className="mb-3 font-normal text-neutral-400" key={index}>
