@@ -18,7 +18,7 @@ const ParallaxBackground = () => {
         <div
           className="absolute inset-0 w-full h-screen -z-50"
           style={{
-            backgroundImage: "url(/assets/sky.png)",
+            backgroundImage: "url(/assets/sky.webp)",
             backgroundPosition: "bottom",
             backgroundSize: "cover",
           }}
@@ -27,7 +27,7 @@ const ParallaxBackground = () => {
         <motion.div
           className="absolute inset-0 -z-40"
           style={{
-            backgroundImage: "url(/assets/cloud.png)",
+            backgroundImage: "url(/assets/cloud.webp)",
             backgroundPosition: "bottom",
             backgroundSize: "cover",
             y: cloud2y,
@@ -37,7 +37,7 @@ const ParallaxBackground = () => {
         <motion.div
           className="absolute inset-0 -z-30"
           style={{
-            backgroundImage: "url(/assets/planets.png)",
+            backgroundImage: "url(/assets/planets.webp)",
             backgroundPosition: "bottom",
             backgroundSize: "cover",
             y: planety, // Memanggil planety yang baru
@@ -46,7 +46,7 @@ const ParallaxBackground = () => {
         <motion.div
           className="absolute inset-0 -z-40"
           style={{
-            backgroundImage: "url(/assets/cloud2.png)",
+            backgroundImage: "url(/assets/cloud2.webp)",
             backgroundPosition: "bottom",
             backgroundSize: "cover",
             y: cloud1y,
@@ -59,8 +59,6 @@ const ParallaxBackground = () => {
               "linear-gradient(to bottom, transparent 60%, var(--color-primary) 100%)",
           }}
         />
-        <div />
-        <div />
       </div>
     </section>
   );

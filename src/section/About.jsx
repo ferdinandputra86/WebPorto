@@ -83,7 +83,7 @@ const About = () => {
           className="flex items-end grid-special-color grid-1 relative overflow-hidden"
         >
           <img
-            src="/assets/coding.png"
+            src="/assets/coding.webp"
             className="absolute scale-[2] -right-[5rem] -top-[2rem] md:scale-[4] md:left-10 md:inset-y-3 lg:scale-[2.4]"
             alt="coding"
           />

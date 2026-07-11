@@ -24,6 +24,7 @@ export const ShootingStars = ({
   const svgRef = useRef(null);
 
   useEffect(() => {
+    let timerId;
     const createStar = () => {
       const { x, y, angle } = getRandomStartPoint();
       const newStar = {
@@ -38,12 +39,12 @@ export const ShootingStars = ({
       setStar(newStar);
 
       const randomDelay = Math.random() * (maxDelay - minDelay) + minDelay;
-      setTimeout(createStar, randomDelay);
+      timerId = setTimeout(createStar, randomDelay);
     };
 
     createStar();
 
-    return () => {};
+    return () => clearTimeout(timerId);
   }, [minSpeed, maxSpeed, minDelay, maxDelay]);
 
   useEffect(() => {

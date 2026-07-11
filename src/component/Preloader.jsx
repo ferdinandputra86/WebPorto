@@ -3,23 +3,23 @@ import { motion, AnimatePresence } from "motion/react";
 
 // Critical assets that must be loaded before showing the site
 const CRITICAL_ASSETS = [
-  "/assets/sky.png",
-  "/assets/cloud.png",
-  "/assets/cloud2.png",
-  "/assets/planets.png",
-  "/assets/coding.png",
+  "/assets/sky.webp",
+  "/assets/cloud.webp",
+  "/assets/cloud2.webp",
+  "/assets/planets.webp",
+  "/assets/coding.webp",
 ];
 
 // Secondary assets - loaded in background but tracked for progress
 const SECONDARY_ASSETS = [
-  "/assets/projects/solace.jpg",
-  "/assets/projects/node.jpg",
-  "/assets/projects/laravel.jpg",
-  "/assets/projects/pasar.in.jpg",
-  "/assets/projects/diabetesense.jpg",
-  "/assets/projects/emotionclass.jpg",
-  "/assets/projects/heartlog.jpg",
-  "/assets/projects/rythm.jpg",
+  "/assets/projects/solace.webp",
+  "/assets/projects/node.webp",
+  "/assets/projects/laravel.webp",
+  "/assets/projects/pasar.in.webp",
+  "/assets/projects/diabetesense.webp",
+  "/assets/projects/emotionclass.webp",
+  "/assets/projects/heartlog.webp",
+  "/assets/projects/rythm.webp",
   "/assets/socials/instagram.svg",
   "/assets/socials/linkedIn.svg",
   "/assets/arrow-right.svg",
