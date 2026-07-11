@@ -164,6 +164,20 @@ export const myProjects = [
 
 export const experiences = [
   {
+    title: "Backend Developer",
+    job: "PT Jasa Raharja (Persero)",
+    date: "Jun 2026 - Present",
+    contents: [
+      "Built and maintained backend services using Golang for company business and operations.",
+      "Created RESTful APIs with Golang routing so different systems can communicate properly.",
+      "Made database queries faster by implementing Stored Procedures.",
+      "Connected backend apps to databases in a safe and scalable way.",
+      "Worked with frontend team, QA, and system analysts from planning to launching new features.",
+      "Fixed bugs, improved performance, and kept production system stable.",
+      "Reviewed code and followed development standards to keep the codebase clean and consistent.",
+    ],
+  },
+  {
     title: "Backend Developer (Freelance)",
     job: "solacestudio.id",
     date: "Jan 2026 - Feb 2026",
