@@ -1,16 +1,18 @@
 "use client";
 import { useScroll, useTransform, motion } from "framer-motion";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 
 export const Timeline = ({ data }) => {
   const ref = useRef(null);
   const containerRef = useRef(null);
   const [height, setHeight] = useState(0);
+  const [lineReady, setLineReady] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (ref.current) {
       const rect = ref.current.getBoundingClientRect();
       setHeight(rect.height);
+      setLineReady(true);
     }
   }, [ref]);
 
@@ -29,7 +31,7 @@ export const Timeline = ({ data }) => {
         {data.map((item, index) => (
           <div
             key={index}
-            className="flex justify-start pt-10 md:pt-40 md:gap-10"
+            className="flex justify-start pt-12 md:pt-40 md:gap-10"
           >
             {/* Desktop only: sticky column */}
             <div className="sticky z-40 hidden md:flex flex-col items-center self-start md:flex-row top-40">
@@ -47,12 +49,12 @@ export const Timeline = ({ data }) => {
             <div className="relative w-full md:pl-4">
               {/* Mobile only: dot + header */}
               <div className="relative mb-4 md:hidden">
-                <div className="absolute left-0 top-1 flex items-center justify-center w-4 h-4">
+                <div className="absolute left-[-3px] top-0 flex items-center justify-center w-4 h-4">
                   <div className="w-3 h-3 rounded-full bg-neutral-800 border border-neutral-700" />
                 </div>
-                <div className="pl-8">
-                  <h3 className="text-xl font-bold text-neutral-300">{item.date}</h3>
-                  <h3 className="text-lg text-neutral-400">{item.job}</h3>
+                <div className="pl-9">
+                  <h3 className="text-lg font-bold text-neutral-300">{item.date}</h3>
+                  <h3 className="text-base text-neutral-400">{item.job}</h3>
                 </div>
               </div>
               {item.contents.map((content, index) => (
@@ -66,6 +68,8 @@ export const Timeline = ({ data }) => {
         <div
           style={{
             height: height + "px",
+            opacity: lineReady ? 1 : 0,
+            transition: "opacity 0.6s ease",
           }}
           className="absolute md:left-1 left-1 top-0 overflow-hidden w-[2px] bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent from-[0%] via-neutral-700 to-transparent to-[99%]  [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)] "
         >
