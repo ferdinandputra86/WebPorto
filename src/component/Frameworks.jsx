@@ -2,14 +2,13 @@ import { OrbitingCircles } from "./OrbitingCircle";
 
 export function Frameworks() {
   return (
-    <div className="relative flex h-[300px] sm:h-[400px] md:h-[500px] w-full flex-col items-center justify-center overflow-hidden">
+    <div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden">
       {/* Teks di Tengah Lingkaran (Opsional) */}
       <span className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-white to-gray-400 bg-clip-text text-center text-4xl font-semibold leading-none text-transparent drop-shadow-sm">
         Tech Stack
       </span>
 
       {/* Lingkaran Luar (6 Ikon) */}
-      <div className="scale-[0.6] sm:scale-75 md:scale-100 origin-center">
       <OrbitingCircles iconSize={40} radius={160} speed={1.5}>
         <img
           src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"
@@ -61,7 +60,6 @@ export function Frameworks() {
           alt="Kotlin"
         />
       </OrbitingCircles>
-      </div>
     </div>
   );
 }
