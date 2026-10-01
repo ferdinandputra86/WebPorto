@@ -4,18 +4,42 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Ferdinand's Portfolio - IT Engineer focused on building backend systems, infrastructure, and technology solutions." />
-    <meta property="og:title" content="Ferdinand - IT Engineer Portfolio" />
+    <meta name="description" content="Ferdinand's Portfolio - Software Developer focused on building backend, database, and troubleshooting technology solutions." />
+    <meta property="og:title" content="Ferdinand - Software Developer Portfolio" />
     <meta property="og:description" content="Backend developer specializing in Golang, RESTful APIs, and system architecture." />
     <meta property="og:image" content="/assets/sky.webp" />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
     <title>Ferdinand</title>
+    <script>
+      /* Tentukan tema sebelum render supaya tidak berkedip: localStorage -> prefers-color-scheme */
+      (function () {
+        var t = "dark";
+        try {
+          var saved = localStorage.getItem("theme");
+          if (saved === "light" || saved === "dark") t = saved;
+          else if (window.matchMedia("(prefers-color-scheme: light)").matches) t = "light";
+        } catch (e) {
+          try {
+            if (window.matchMedia("(prefers-color-scheme: light)").matches) t = "light";
+          } catch (e2) {}
+        }
+        document.documentElement.setAttribute("data-theme", t);
+        document.documentElement.style.colorScheme = t;
+      })();
+    </script>
     <style>
       /* Prevent flash of white before React loads */
       body {
         margin: 0;
         background: #030412;
+      }
+      html[data-theme="light"] body {
+        background: #cfe8fb;
+      }
+      /* Sebelum React jalan, samakan dengan warna langit start screen siang */
+      html[data-theme="light"] body.loading {
+        background: #3b8fe6;
       }
       /* Prevent scrolling while loading */
       body.loading {

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
+import ThemeToggle from "../component/ThemeToggle";
 
 function Navigation() {
   return (
@@ -22,6 +23,11 @@ function Navigation() {
       <li className="nav-li">
         <a className="nav-link sm:!text-xl md:!text-2xl" href="#experience">
           Experience
+        </a>
+      </li>
+      <li className="nav-li">
+        <a className="nav-link sm:!text-xl md:!text-2xl" href="#contact">
+          Contact
         </a>
       </li>
     </ul>
@@ -52,32 +58,38 @@ const Navbar = () => {
     <div
       className={`fixed inset-x-0 z-20 w-full transition-colors duration-500 ease-in-out ${
         isOpen
-          ? "bg-primary/90 backdrop-blur-lg" // Warna menu saat terbuka di HP (menyatu penuh)
+          ? "bg-[var(--nav-bg-open)] backdrop-blur-lg" // Warna menu saat terbuka di HP (menyatu penuh)
           : hasScrolled
-            ? "bg-primary/40 backdrop-blur-lg" // Warna saat di-scroll ke bawah
-            : "bg-primary/0" // Warna saat mentok di atas
+            ? "bg-[var(--nav-bg)] backdrop-blur-lg" // Warna saat di-scroll ke bawah
+            : "bg-transparent" // Warna saat mentok di atas
       }`}
     >
       <div className="mx-auto c-space max-w-7xl">
         <div className="flex items-center justify-between py-2 sm:py-0">
           <a
             href="/"
-            className="text-2xl font-bold transition-colors text-neutral-400 hover:text-white"
+            className="text-2xl font-bold transition-opacity text-[var(--nav-text)] hover:opacity-70"
           >
             Ferdinand
           </a>
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="flex cursor-pointer text-neutral-400 hover:text-white focus:outline-none sm:hidden"
-          >
-            <img
-              src={isOpen ? "assets/close.svg" : "assets/menu.svg"}
-              className="w-6 h-6"
-              alt="toggle"
-            />
-          </button>
-          <nav className="hidden sm:flex">
+          <div className="flex items-center gap-3.5 sm:hidden">
+            <ThemeToggle />
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label={isOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isOpen}
+              className="flex cursor-pointer text-[var(--nav-text)] focus:outline-none"
+            >
+              <img
+                src={isOpen ? "/assets/close.svg" : "/assets/menu.svg"}
+                className="w-6 h-6 light:invert"
+                alt=""
+              />
+            </button>
+          </div>
+          <nav className="items-center hidden sm:flex">
             <Navigation />
+            <ThemeToggle className="ml-5 md:ml-9" />
           </nav>
         </div>
       </div>
