@@ -4,7 +4,7 @@ export function Frameworks() {
   return (
     <div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden">
       {/* Teks di Tengah Lingkaran (Opsional) */}
-      <span className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-white to-gray-400 bg-clip-text text-center text-4xl font-semibold leading-none text-transparent drop-shadow-sm">
+      <span className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-white to-gray-400 light:from-[#14204a] light:to-[#5a6e8c] bg-clip-text text-center text-4xl font-semibold leading-none text-transparent drop-shadow-sm">
         Tech Stack
       </span>
 

@@ -1,13 +1,25 @@
 import { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
+import { DaySprites, DaySun, skyBands } from "./DaySky";
+import { useTheme } from "../lib/theme";
 
 // Critical assets that must be loaded before showing the site
 const CRITICAL_ASSETS = [
-  "/assets/sky.webp",
-  "/assets/cloud.webp",
-  "/assets/cloud2.webp",
-  "/assets/planets.webp",
+  "/assets/hq/sky.webp",
+  "/assets/hq/cloud.webp",
+  "/assets/hq/cloud2.webp",
+  "/assets/hq/planets.webp",
   "/assets/coding.webp",
+];
+
+// Aset langit mode siang (hanya dimuat kalau tema aktif = siang)
+const DAY_ASSETS = [
+  "/assets/day/cloud-day.webp",
+  "/assets/day/cloud2-day.webp",
+  "/assets/sprites/plane.png",
+  "/assets/sprites/balloon-orange.png",
+  "/assets/sprites/balloon-green.png",
+  "/assets/sprites/bird.png",
 ];
 
 // Secondary assets - loaded in background but tracked for progress
@@ -82,11 +94,16 @@ const Preloader = ({ onComplete }) => {
   const [currentTip, setCurrentTip] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
+  const reduceMotion = useReducedMotion();
+  const { theme } = useTheme();
+  const isDay = theme === "light";
 
   // Lock body scroll during preload
   useEffect(() => {
+    document.documentElement.style.overflow = "hidden";
     document.body.style.overflow = "hidden";
     return () => {
+      document.documentElement.style.overflow = "";
       document.body.style.overflow = "";
     };
   }, []);
@@ -100,7 +117,14 @@ const Preloader = ({ onComplete }) => {
   }, []);
 
   const startLoading = useCallback(async () => {
-    const allAssets = [...CRITICAL_ASSETS, ...SECONDARY_ASSETS, ...CDN_ASSETS];
+    const isDayTheme =
+      document.documentElement.getAttribute("data-theme") === "light";
+    const allAssets = [
+      ...(isDayTheme ? DAY_ASSETS : []),
+      ...CRITICAL_ASSETS,
+      ...SECONDARY_ASSETS,
+      ...CDN_ASSETS,
+    ];
     const totalAssets = allAssets.length + 1; // +1 for font
     let loaded = 0;
 
@@ -136,132 +160,155 @@ const Preloader = ({ onComplete }) => {
 
   const handleEnter = () => {
     setIsExiting(true);
-    // Scroll to top for clean first impression
-    window.scrollTo(0, 0);
+    // Reset ke atas tanpa animasi scroll (body punya scroll-behavior: smooth)
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     setTimeout(() => {
+      document.documentElement.style.overflow = "";
       document.body.style.overflow = "";
       onComplete();
     }, 800);
   };
+
+  // Bar terisi per segmen (kelipatan 5%), bukan mulus
+  const segmentProgress = Math.min(100, Math.floor(progress / 5) * 5);
+  const layers = [
+    "/assets/hq/sky.webp",
+    "/assets/hq/cloud.webp",
+    "/assets/hq/planets.webp",
+    "/assets/hq/cloud2.webp",
+  ];
 
   return (
     <AnimatePresence>
       {!isExiting && (
         <motion.div
           className="preloader-overlay"
-          exit={{ opacity: 0, scale: 1.05 }}
+          exit={{ opacity: 0, scale: reduceMotion ? 1 : 1.08 }}
           transition={{ duration: 0.8, ease: "easeInOut" }}
         >
-          {/* Animated background particles */}
-          <div className="preloader-particles">
-            {Array.from({ length: 30 }).map((_, i) => (
+          {isDay ? (
+            <>
               <div
-                key={i}
-                className="preloader-particle"
+                aria-hidden="true"
+                className="absolute inset-0"
+                style={{ background: skyBands }}
+              />
+              <DaySun variant="intro" />
+              <div
+                aria-hidden="true"
+                className="preloader-layer"
+                style={{ backgroundImage: "url(/assets/day/cloud-day.webp)" }}
+              />
+              <DaySprites variant="intro" />
+              <div
+                aria-hidden="true"
+                className="preloader-layer"
+                style={{ backgroundImage: "url(/assets/day/cloud2-day.webp)" }}
+              />
+              <div
+                aria-hidden="true"
+                className="absolute inset-0"
                 style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  animationDelay: `${Math.random() * 5}s`,
-                  animationDuration: `${3 + Math.random() * 4}s`,
-                  width: `${2 + Math.random() * 3}px`,
-                  height: `${2 + Math.random() * 3}px`,
+                  background:
+                    "linear-gradient(to bottom, transparent 70%, #cfe8fb 100%)",
                 }}
               />
-            ))}
-          </div>
+            </>
+          ) : (
+            <>
+              {layers.map((src) => (
+                <div
+                  key={src}
+                  aria-hidden="true"
+                  className="preloader-layer"
+                  style={{ backgroundImage: `url(${src})` }}
+                />
+              ))}
+              <div
+                aria-hidden="true"
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "radial-gradient(ellipse at 50% 45%, rgba(3,4,18,.6), rgba(3,4,18,0) 65%)",
+                }}
+              />
+              <div
+                aria-hidden="true"
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(to bottom, transparent 60%, #030412 100%)",
+                }}
+              />
+            </>
+          )}
 
-          {/* Scanline overlay */}
-          <div className="preloader-scanlines" />
-
-          {/* Main content */}
-          <div className="preloader-content">
-            {/* Logo / Title */}
+          <div className="absolute inset-x-0 top-[14vh] md:top-[18vh] px-5 text-center">
             <motion.div
-              className="preloader-title-container"
               initial={{ opacity: 0, y: -30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <h1 className="preloader-title">FERDINAND</h1>
-              <p className="preloader-subtitle">PORTFOLIO</p>
+              <h1 className="text-[clamp(44px,7.8vw,112px)] leading-none font-normal tracking-[0.04em] [text-shadow:6px_6px_0_#1b1250] max-md:[text-shadow:3px_3px_0_#1b1250] light:[text-shadow:6px_6px_0_rgba(255,255,255,.85)] light:max-md:[text-shadow:3px_3px_0_rgba(255,255,255,.85)]">
+                FERDINAND
+              </h1>
+              <p className="mt-3.5 text-[clamp(18px,2.8vw,40px)] tracking-[0.5em] text-[#d9ccff] light:text-[#10204f] [text-shadow:3px_3px_0_#1b1250] light:[text-shadow:3px_3px_0_rgba(255,255,255,.85)]">
+                PORTFOLIO
+              </p>
             </motion.div>
 
-            {/* Pixel art divider */}
             <motion.div
-              className="preloader-divider"
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ duration: 1, delay: 0.5 }}
-            />
-
-            {/* Progress section */}
-            <motion.div
-              className="preloader-progress-section"
+              className="mx-auto mt-10 md:mt-14 w-full max-w-[520px] text-left"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.8 }}
             >
-              {/* Progress bar container */}
-              <div className="preloader-bar-outer">
-                <div className="preloader-bar-border">
-                  <div className="preloader-bar-track">
-                    <motion.div
-                      className="preloader-bar-fill"
-                      initial={{ width: 0 }}
-                      animate={{ width: `${progress}%` }}
-                      transition={{ duration: 0.3, ease: "easeOut" }}
-                    >
-                      <div className="preloader-bar-shine" />
-                    </motion.div>
-                    {/* Segmented blocks overlay */}
-                    <div className="preloader-bar-segments">
-                      {Array.from({ length: 20 }).map((_, i) => (
-                        <div key={i} className="preloader-bar-segment" />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Progress text */}
-              <div className="preloader-progress-info">
-                <span className="preloader-percentage">{progress}%</span>
+              <div className="flex items-center justify-between gap-4 mb-2 text-sm md:text-xl text-[#d9ccff] light:text-[#10204f] uppercase">
                 <AnimatePresence mode="wait">
                   <motion.span
                     key={currentTip}
-                    className="preloader-tip"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.3 }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.2 }}
                   >
                     {LOADING_TIPS[currentTip]}
                   </motion.span>
                 </AnimatePresence>
+                <span>{progress}%</span>
+              </div>
+              <div
+                className="preloader-bar"
+                role="progressbar"
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-valuenow={progress}
+                aria-label="Loading"
+              >
+                <i style={{ width: `${segmentProgress}%` }} />
               </div>
             </motion.div>
 
-            {/* Enter button - shows when finished */}
-            <AnimatePresence>
+            <div className="mt-10 md:mt-12 min-h-[120px]">
               {isFinished && (
-                <motion.button
-                  className="preloader-enter-btn"
-                  onClick={handleEnter}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{
-                    duration: 0.5,
-                    type: "spring",
-                    stiffness: 200,
-                  }}
-                >
-                  <span className="preloader-enter-text">▶ START</span>
-                  <span className="preloader-enter-hint">
+                <>
+                  <button
+                    type="button"
+                    className="px-btn"
+                    onClick={handleEnter}
+                    autoFocus
+                  >
+                    <span>▶ START</span>
+                  </button>
+                  <div
+                    className="mt-5 text-base md:text-xl text-[#d9ccff] light:text-[#10204f] px-blink"
+                    aria-hidden="true"
+                  >
                     [ PRESS TO ENTER ]
-                  </span>
-                </motion.button>
+                  </div>
+                </>
               )}
-            </AnimatePresence>
+            </div>
           </div>
         </motion.div>
       )}
